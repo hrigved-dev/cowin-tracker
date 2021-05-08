@@ -1,8 +1,13 @@
 const request = require("postman-request")
 
 function cowin() {
-    var pincodes = ["411001", "411002", "411028", "411011", "411037", "411016"]
-    var dates = ["09-05-2021", "10-05-2021", "11-05-2021", "12-05-2021"]
+    var pincodes = [ "411001", "411002", "411028", "411011", "411037", "411016", "411046", "411040", "411040", "411004" ]
+    var day = new Date()
+    var today = day.getDate()
+    if(today<10) {
+        today = '0'+today;
+    }
+    var dates = [ today+"-05-2021", (today+1)+"-05-2021", (today+2)+"-05-2021", (today+3)+"-05-2021" ]
     for(i=0; i<pincodes.length; i++) {
         for(j=0;j<dates.length;j++) {
             url = "https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/calendarByPin?pincode="+pincodes[i]+"&date="+dates[j]
@@ -22,13 +27,14 @@ function cowin() {
                         const date = data[0].sessions[0].date;
                         const capacity = data[0].sessions[0].available_capacity;
                         const age = data[0].sessions[0].min_age_limit;
-                        if(18 <= age <= 44) {
+                        
+                        if(18 <= age <= 44 && capacity>0) {
                             console.log("AVAILABLE..");
                             console.log("Pincode: ", pincode);
                             console.log("Name: ", name);
                             console.log("Address: ", address);
                             console.log("Date: ", date);
-                            console.log("Capacity: ", capacity);
+                            console.log("\n\n");
                         }
                     }
                 }
@@ -38,9 +44,9 @@ function cowin() {
 }
 
 
-setInterval(cowin, 5000)
+// setInterval(cowin, 5000)
 
-// cowin()
+cowin()
 
 
 
