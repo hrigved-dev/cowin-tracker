@@ -1,4 +1,5 @@
 # cowin-tracker
+A node.js application which will search for available vaccine slots
 
 ## Inspiration:
 This project was built to ease the process of searching a vaccine slot, since it gets booked completely without being noticed.
