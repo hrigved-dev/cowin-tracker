@@ -1,13 +1,28 @@
-const request = require("postman-request")
+const request = require("postman-request") //requiring the postman-request npm package to handle our http requests
 
 function cowin() {
-    var pincodes = [ "411001", "411002", "411028", "411011", "411037", "411016", "411046", "411040", "411040", "411004" ]
+    var pincodes = [ "411001", "411002", "411028", "411011", "411037", "411016", "411046", "411040", "411004" ] //pincodes around to search
+    var dates = []
+
+    //to automate getting the current date
     var day = new Date()
     var today = day.getDate()
-    if(today<10) {
-        today = '0'+today;
+    var month = day.getMonth()+1
+    var year = day.getFullYear()
+
+    if(today<10 || month<10) {      //since today will if a digit date if it is < 10, but the API requires a parameter of dd-mm-yyyy
+        newtoday = '0'+today;
+        newMonth = '0'+month;
+        dates.push(newtoday+"-"+newMonth+"-"+year)
     }
-    var dates = [ today+"-05-2021", (today+1)+"-05-2021", (today+2)+"-05-2021", (today+3)+"-05-2021" ]
+
+    for(i=1; i<=4; i++) {
+        currentDay = (today+i)+"-"+newMonth+"-"+year
+        dates.push(currentDay.toString())
+    }
+    console.log(dates);
+    // var dates = [ "09-05-2021", "10-05-2021", "11-05-2021", "12-05-2021" ]
+
     for(i=0; i<pincodes.length; i++) {
         for(j=0;j<dates.length;j++) {
             url = "https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/calendarByPin?pincode="+pincodes[i]+"&date="+dates[j]
@@ -44,9 +59,9 @@ function cowin() {
 }
 
 
-// setInterval(cowin, 5000)
+setInterval(cowin, 5000)
 
-cowin()
+// cowin()
 
 
 
