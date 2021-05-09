@@ -10,7 +10,7 @@ function cowin() {
     var month = day.getMonth()+1
     var year = day.getFullYear()
 
-    if(today<10 || month<10) {      //since today will if a digit date if it is < 10, but the API requires a parameter of dd-mm-yyyy
+    if(today<10 || month<10) {      //since today will give a single digit date if it is < 10, but the API requires a parameter of dd-mm-yyyy
         newtoday = '0'+today;
         newMonth = '0'+month;
         dates.push(newtoday+"-"+newMonth+"-"+year)
